@@ -19,4 +19,4 @@ It is heavily inspired from [looplab/fsm](https://github.com/looplab/fsm) librar
 
 ## License
 
-FSM is licensed under (MIT License)[https://opensource.org/licenses/MIT]
+FSM is licensed under [MIT License](https://opensource.org/licenses/MIT)
