@@ -1,12 +1,17 @@
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/snapp-incubator/fsm)](https://pkg.go.dev/github.com/snapp-incubator/fsm)
+<!-- LOGO -->
+<p align="center">
+  <img src="assets/fsm.png" style="background-color:white;"/>
+</p>
 
-![Bulid Status](https://github.com/snapp-incubator/fsm/actions/workflows/main.yml/badge.svg)
+<p align="center">
+  <img src="https://img.shields.io/github/release/snapp-incubator/fsm.svg?style=for-the-badge">
+  <img src="https://img.shields.io/codecov/c/gh/snapp-incubator/fsm?logo=codecov&style=for-the-badge">
+  <img src="https://img.shields.io/github/license/snapp-incubator/fsm?style=for-the-badge">
+  <img src="https://img.shields.io/github/stars/snapp-incubator/fsm?style=for-the-badge">
+</p>
 
-[![Coverage Status](https://img.shields.io/coveralls/snapp-incubator/fsm.svg)](https://coveralls.io/r/snapp-incubator/fsm)
 
-[![Go Report Card](https://goreportcard.com/badge/snapp-incubator/fsm)](https://goreportcard.com/report/snapp-incubator/fsm)
-
-## FSM for Go
+# FSM for Go
 
 Finite State Machine for Go
 
