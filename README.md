@@ -6,8 +6,12 @@
 
 [![Go Report Card](https://goreportcard.com/badge/snapp-incubator/fsm)](https://goreportcard.com/report/snapp-incubator/fsm)
 
-# FSM for Go
+## FSM for Go
 
 Finite State Machine for Go
 
-implementation has been inspired from [looplab/fsm](https://github.com/looplab/fsm)
+It is heavily inspired from [looplab/fsm](https://github.com/looplab/fsm) library
+
+## License
+
+FSM is licensed under (MIT License)[https://opensource.org/licenses/MIT]
