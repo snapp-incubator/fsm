@@ -1,8 +1,9 @@
 <!-- LOGO -->
 <p align="center">
-  <img src="assets/fsm.png" style="background-color:white;"/>
+  <img src="assets/fsm.png"/>
 </p>
 
+<!-- BADGES -->
 <p align="center">
   <img src="https://img.shields.io/github/release/snapp-incubator/fsm.svg?style=for-the-badge">
   <img src="https://img.shields.io/codecov/c/gh/snapp-incubator/fsm?logo=codecov&style=for-the-badge">
