@@ -1,6 +1,9 @@
 package pkg
 
-import "sync"
+import (
+	"errors"
+	"sync"
+)
 
 type Instance struct {
 	// current is the state that the FSM is currently in.
@@ -27,6 +30,7 @@ type Instance struct {
 func (f *Instance) Current() string {
 	f.stateMu.RLock()
 	defer f.stateMu.RUnlock()
+
 	return f.current
 }
 
@@ -34,6 +38,7 @@ func (f *Instance) Current() string {
 func (f *Instance) Is(state string) bool {
 	f.stateMu.RLock()
 	defer f.stateMu.RUnlock()
+
 	return state == f.current
 }
 
@@ -42,6 +47,7 @@ func (f *Instance) Is(state string) bool {
 func (f *Instance) SetState(state string) {
 	f.stateMu.Lock()
 	defer f.stateMu.Unlock()
+
 	f.current = state
 }
 
@@ -49,7 +55,9 @@ func (f *Instance) SetState(state string) {
 func (f *Instance) Can(machine *Machine, event string) bool {
 	f.stateMu.RLock()
 	defer f.stateMu.RUnlock()
+
 	_, ok := machine.transitions[transitionKey{event, f.current}]
+
 	return ok && (f.transition == nil)
 }
 
@@ -57,27 +65,31 @@ func (f *Instance) Can(machine *Machine, event string) bool {
 func (f *Instance) AvailableTransitions(machine *Machine) []string {
 	f.stateMu.RLock()
 	defer f.stateMu.RUnlock()
+
 	var transitions []string
 	for key := range machine.transitions {
 		if key.source == f.current {
 			transitions = append(transitions, key.name)
 		}
 	}
+
 	return transitions
 }
 
-// SetMetadata stores the dataValue in metadata indexing it with key
+// SetMetadata stores the dataValue in metadata indexing it with key.
 func (f *Instance) SetMetadata(key string, dataValue interface{}) {
 	f.metadataMu.Lock()
 	defer f.metadataMu.Unlock()
 	f.metadata[key] = dataValue
 }
 
-// GetMetadata returns the value stored in metadata
+// GetMetadata returns the value stored in metadata.
 func (f *Instance) GetMetadata(key string) (interface{}, bool) {
 	f.metadataMu.RLock()
 	defer f.metadataMu.RUnlock()
+
 	dataElement, ok := f.metadata[key]
+
 	return dataElement, ok
 }
 
@@ -116,6 +128,7 @@ func (f *Instance) Transition(machine *Machine, name string, args ...interface{}
 				return InvalidEventError{name, f.current}
 			}
 		}
+
 		return UnknownEventError{name}
 	}
 
@@ -128,6 +141,7 @@ func (f *Instance) Transition(machine *Machine, name string, args ...interface{}
 
 	if f.current == dst {
 		f.afterEventCallbacks(machine, e)
+
 		return NoTransitionError{e.Err}
 	}
 
@@ -142,17 +156,18 @@ func (f *Instance) Transition(machine *Machine, name string, args ...interface{}
 	}
 
 	if err = f.leaveStateCallbacks(machine, e); err != nil {
-		if _, ok := err.(CanceledError); ok {
+		if ok := errors.As(err, new(CanceledError)); ok {
 			f.transition = nil
 		}
+
 		return err
 	}
 
 	// Perform the rest of the transition, if not asynchronous.
 	f.stateMu.RUnlock()
 	defer f.stateMu.RLock()
-	err = f.doTransition()
-	if err != nil {
+
+	if err := f.doTransition(); err != nil {
 		return InternalError{}
 	}
 
