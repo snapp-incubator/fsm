@@ -21,7 +21,7 @@ func main() {
 	instance2 := machine.NewInstance("open")
 
 	fmt.Printf("instance1 state: %s\n", instance1.Current())
-	fmt.Printf("instance2 state: %s", instance2.Current())
+	fmt.Printf("instance2 state: %s\n", instance2.Current())
 
 	err := instance1.Transition(machine, "open")
 	if err != nil {
