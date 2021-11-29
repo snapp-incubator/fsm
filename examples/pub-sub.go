@@ -31,20 +31,22 @@ func main() {
 
 	instance := machine.NewInstance("idle")
 
-	fmt.Println(instance.Current())
+	v, _ := fsm.VisualizeWithType(machine, instance, fsm.GRAPHVIZ)
+	fmt.Println(v)
 
 	err := instance.Transition(machine, "publish")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println(instance.Current())
+	v, _ = fsm.VisualizeWithType(machine, instance, fsm.GRAPHVIZ)
+	fmt.Println(v)
 
 	err = instance.Transition(machine, "subscribe")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println(instance.Current())
-
+	v, _ = fsm.VisualizeWithType(machine, instance, fsm.GRAPHVIZ)
+	fmt.Println(v)
 }
