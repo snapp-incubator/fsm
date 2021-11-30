@@ -48,6 +48,7 @@ func (e NoTransitionError) Error() string {
 	if e.Err != nil {
 		return "no transition with error: " + e.Err.Error()
 	}
+
 	return "no transition"
 }
 
@@ -61,6 +62,7 @@ func (e CanceledError) Error() string {
 	if e.Err != nil {
 		return "transition canceled with error: " + e.Err.Error()
 	}
+
 	return "transition canceled"
 }
 
@@ -74,6 +76,7 @@ func (e AsyncError) Error() string {
 	if e.Err != nil {
 		return "async started with error: " + e.Err.Error()
 	}
+
 	return "async started"
 }
 

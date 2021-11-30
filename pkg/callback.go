@@ -29,16 +29,20 @@ type callbackKey struct {
 func (f *Instance) beforeEventCallbacks(machine *Machine, t *Transition) error {
 	if fn, ok := machine.callbacks[callbackKey{t.Name, callbackBeforeTransition}]; ok {
 		fn(t)
+
 		if t.canceled {
 			return CanceledError{t.Err}
 		}
 	}
+
 	if fn, ok := machine.callbacks[callbackKey{"", callbackBeforeTransition}]; ok {
 		fn(t)
+
 		if t.canceled {
 			return CanceledError{t.Err}
 		}
 	}
+
 	return nil
 }
 
@@ -46,20 +50,24 @@ func (f *Instance) beforeEventCallbacks(machine *Machine, t *Transition) error {
 func (f *Instance) leaveStateCallbacks(machine *Machine, e *Transition) error {
 	if fn, ok := machine.callbacks[callbackKey{f.current, callbackLeaveState}]; ok {
 		fn(e)
+
 		if e.canceled {
 			return CanceledError{e.Err}
 		} else if e.async {
 			return AsyncError{e.Err}
 		}
 	}
+
 	if fn, ok := machine.callbacks[callbackKey{"", callbackLeaveState}]; ok {
 		fn(e)
+
 		if e.canceled {
 			return CanceledError{e.Err}
 		} else if e.async {
 			return AsyncError{e.Err}
 		}
 	}
+
 	return nil
 }
 
@@ -68,6 +76,7 @@ func (f *Instance) enterStateCallbacks(machine *Machine, e *Transition) {
 	if fn, ok := machine.callbacks[callbackKey{f.current, callbackEnterState}]; ok {
 		fn(e)
 	}
+
 	if fn, ok := machine.callbacks[callbackKey{"", callbackEnterState}]; ok {
 		fn(e)
 	}
@@ -78,6 +87,7 @@ func (f *Instance) afterEventCallbacks(machine *Machine, e *Transition) {
 	if fn, ok := machine.callbacks[callbackKey{e.Name, callbackAfterTransition}]; ok {
 		fn(e)
 	}
+
 	if fn, ok := machine.callbacks[callbackKey{"", callbackAfterTransition}]; ok {
 		fn(e)
 	}
