@@ -16,7 +16,7 @@
 
 Finite State Machine for Go
 
-It is heavily inspired from [looplab/fsm](https://github.com/looplab/fsm) library
+It is heavily inspired from [looplab/fsm](https://github.com/looplab/fsm) library but with more abstractions and optimizations
 
 ## License
 
